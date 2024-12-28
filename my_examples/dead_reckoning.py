@@ -59,15 +59,14 @@ class DeadReckoning():
         self.pose=[x_new,y_new,theta_new]
 
         # Computer robot coveriance Sig (self.Sig), using the jacobian matrix H and the covariance matrix Q.
-        H_K = np.array([[1, 0, -dt*v_l*np.sin(self.pose[self.k-1][2])],
-                             [0, 1, dt*v_l*np.cos(self.pose[self.k-1][2])],
+        H_K = np.array([[1, 0, -dt*v_l*np.sin(self.pose[2])],
+                             [0, 1, dt*v_l*np.cos(self.pose[2])],
                              [0, 0, 1]])
         H_T_K = H_K.T # # Use transpose directly
         # v = R(ωr + ωl)/2
-        # 由误差传播定律：
         sigma_v_squared = (self.R/2)**2 * (self.w_r + self.w_l)
         # ω = R(ωr - ωl)/L
-        # L是轮距(self.L = 0.18)
+        # wheel distance(self.L = 0.18)
         sigma_omega_squared = (self.R/self.L)**2 * (self.w_r + self.w_l)
         # θ = θ_previous + ω*dt
         sigma_theta_squared = sigma_omega_squared * (dt**2)
@@ -86,6 +85,5 @@ class DeadReckoning():
         msg_pose.cov = self.Sig
 
         topics["Pose"] = msg_pose
-
         return topics
 

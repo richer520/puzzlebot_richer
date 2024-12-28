@@ -3,7 +3,7 @@
     "world": "world01.json",
     "robot": "puzzlebot01.json",
     "pose": "0.0, 0.0, 0.0",
-    "module": "drive_square",
+    "module": "driveToGoal",
     "real": true,
     "path": true,
     "sensor": true,
